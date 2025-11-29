@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Southfield Sports Academy - Building Men. Strengthening Faith. Transforming Generations.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --ssa-gold: #D4AF37;
+            --ssa-black: #000000;
+            --ssa-charcoal: #2E2E2E;
+            --ssa-white: #FFFFFF;
+            --ssa-slate: #6F6F6F;
+            --ssa-blue: #0057FF;
+            
+            --font-headline: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-script: 'Playfair Display', serif;
+            
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.12);
+            --shadow-lg: 0 16px 64px rgba(0,0,0,0.16);
+            --shadow-gold: 0 8px 32px rgba(212,175,55,0.3);
+            
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--ssa-charcoal);
+            background-color: var(--ssa-white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Modern Header */
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            color: var(--ssa-white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(0, 0, 0, 0.98);
+            padding: 0.8rem 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-headline);
+            font-weight: 800;
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--ssa-gold) 0%, #f4d03f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--ssa-white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(135deg, var(--ssa-gold), #f4d03f);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--ssa-gold);
+            transform: translateY(-2px);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ssa-gold) 0%, #f4d03f 100%);
+            color: var(--ssa-black) !important;
+            padding: 12px 24px !important;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow-gold);
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(212,175,55,0.4);
+        }
+
+        .nav-cta::after {
+            display: none;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .mobile-menu:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .mobile-menu span {
+            width: 24px;
+            height: 3px;
+            background: var(--ssa-gold);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Modern Hero with Carousel */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide:nth-child(1) {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(46,46,46,0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%23000" width="400" height="300"/><circle cx="100" cy="100" r="50" fill="%23D4AF37" opacity="0.1"/><circle cx="300" cy="200" r="30" fill="%23D4AF37" opacity="0.05"/></svg>');
+        }
+
+        .hero-slide:nth-child(2) {
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(46,46,46,0.6)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%232E2E2E" width="400" height="300"/><polygon points="200,50 350,250 50,250" fill="%23D4AF37" opacity="0.08"/></svg>');
+        }
+
+        .hero-slide:nth-child(3) {
+            background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(46,46,46,0.7)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%23000" width="400" height="300"/><rect x="50" y="50" width="300" height="200" fill="%23D4AF37" opacity="0.06"/></svg>');
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: var(--ssa-white);
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: heroFadeIn 1.5s ease-out;
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: var(--font-headline);
+            font-weight: 800;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.8);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero .tagline {
+            color: var(--ssa-gold);
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            opacity: 0.95;
+            animation: taglineFadeIn 2s ease-out 0.5s both;
+        }
+
+        @keyframes taglineFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 0.95;
+                transform: translateY(0);
+            }
+        }
+
+        .hero .motto {
+            font-family: var(--font-script);
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            animation: mottoFadeIn 2.5s ease-out 1s both;
+        }
+
+        @keyframes mottoFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 0.9;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: ctaFadeIn 3s ease-out 1.5s both;
+        }
+
+        @keyframes ctaFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Modern Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 18px 36px;
+            font-family: var(--font-headline);
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--ssa-gold) 0%, #f4d03f 100%);
+            color: var(--ssa-black);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(212,175,55,0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--ssa-gold);
+            border: 2px solid var(--ssa-gold);
+            backdrop-filter: blur(20px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--ssa-gold);
+            color: var(--ssa-black);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--shadow-gold);
+        }
+
+        /* Hero Navigation Dots */
+        .hero-dots {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 3;
+        }
+
+        .hero-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .hero-dot.active {
+            background: var(--ssa-gold);
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(212,175,55,0.5);
+        }
+
+        /* Modern Sections */
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-dark {
+            background: linear-gradient(135deg, var(--ssa-black) 0%, var(--ssa-charcoal) 100%);
+            color: var(--ssa-white);
+        }
+
+        .section-light {
+            background: var(--ssa-white);
+        }
+
+        .section-gold {
+            background: linear-gradient(135deg, var(--ssa-gold) 0%, #f4d03f 100%);
+            color: var(--ssa-black);
+        }
+
+        .section-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Modern Typography */
+        h2 {
+            font-family: var(--font-headline);
+            font-weight: 800;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 3rem;
+            text-align: center;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--ssa-gold), #f4d03f);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-family: var(--font-headline);
+            font-weight: 700;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            margin-bottom: 1.5rem;
+            color: var(--ssa-gold);
+        }
+
+        p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* Modern Cards */
+        .modern-card {
+            background: var(--ssa-white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modern-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--ssa-gold), #f4d03f);
+        }
+
+        /* Pillars Grid - Modern */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .pillar-card {
+            background: var(--ssa-white);
+            padding: 3rem 2.5rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--ssa-gold), #f4d03f);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pillar-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--ssa-gold), #f4d03f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            color: var(--ssa-black);
+            font-weight: bold;
+            box-shadow: var(--shadow-gold);
+            transition: all 0.3s ease;
+        }
+
+        .pillar-card:hover .pillar-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: linear-gradient(135deg, var(--ssa-black), var(--ssa-charcoal));
+            color: var(--ssa-white);
+            text-align: center;
+            border-radius: var(--border-radius-lg);
+            margin: 2rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23D4AF37" opacity="0.1"/><circle cx="80" cy="80" r="3" fill="%23D4AF37" opacity="0.05"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 2rem auto 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 16px 24px;
+            border: 2px solid rgba(212,175,55,0.3);
+            border-radius: 50px;
+            background: rgba(255,255,255,0.1);
+            color: var(--ssa-white);
+            font-size: 1rem;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--ssa-gold);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Modern Footer */
+        footer {
+            background: linear-gradient(135deg, var(--ssa-black) 0%, var(--ssa-charcoal) 100%);
+            color: var(--ssa-white);
+            padding: 4rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--ssa-gold), transparent);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-family: var(--font-headline);
+            font-weight: 700;
+            color: var(--ssa-gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .footer-section a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 0;
+            background: var(--ssa-gold);
+            transition: height 0.3s ease;
+        }
+
+        .footer-section a:hover::before {
+            height: 100%;
+        }
+
+        .footer-section a:hover {
+            color: var(--ssa-gold);
+            transform: translateX(0.5rem);
+        }
+
+        .footer-motto {
+            border-top: 1px solid rgba(212,175,55,0.2);
+            padding-top: 2rem;
+            text-align: center;
+            font-family: var(--font-script);
+            font-style: italic;
+            color: var(--ssa-gold);
+            font-size: 1.25rem;
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.3), transparent);
+            animation: loading 2s infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0,0,0,0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                border-top: 1px solid rgba(212,175,55,0.2);
+                gap: 1.5rem;
+            }
+            
+            .nav-links.mobile-active {
+                display: flex;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+            
+            .pillars-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .newsletter-input {
+                min-width: 100%;
+            }
+        }
+
+        /* Page Navigation */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Modern Page Styles */
+        .page-hero {
+            background: linear-gradient(135deg, var(--ssa-black), var(--ssa-charcoal));
+            color: var(--ssa-white);
+            text-align: center;
+            padding: 140px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23D4AF37" opacity="0.1"/><circle cx="80" cy="80" r="3" fill="%23D4AF37" opacity="0.05"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+
+        .page-hero h1 {
+            font-family: var(--font-headline);
+            font-weight: 800;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .breadcrumb {
+            color: var(--ssa-gold);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-content {
+            margin-top: 0;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="container">
+            <div class="logo">SSA</div>
+            <ul class="nav-links">
+                <li><a onclick="showPage('home')">Home</a></li>
+                <li><a onclick="showPage('about')">About</a></li>
+                <li><a onclick="showPage('founding-story')">Story</a></li>
+                <li><a onclick="showPage('programs')">Programs</a></li>
+                <li><a onclick="showPage('enrollment')">Enrollment</a></li>
+                <li><a onclick="showPage('testimonials')">Testimonials</a></li>
+                <li><a onclick="showPage('mentorship')">Mentorship</a></li>
+                <li><a onclick="showPage('donate')">Donate</a></li>
+                <li><a onclick="showPage('contact')" class="nav-cta">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <!-- Modern Hero with Carousel -->
+        <section class="hero">
+            <div class="hero-carousel">
+                <div class="hero-slide active"></div>
+                <div class="hero-slide"></div>
+                <div class="hero-slide"></div>
+            </div>
+            <div class="hero-overlay"></div>
+            
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Building Men. Strengthening Faith. Transforming Generations.</h1>
+                    <p class="tagline">Empowering young Black men through faith, brotherhood, leadership, academics, and elite athletic training.</p>
+                    <p class="motto">"Iron sharpens iron." — Proverbs 27:17</p>
+                    <div class="cta-buttons">
+                        <a onclick="showPage('enrollment')" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i>
+                            Enroll Your Son
+                        </a>
+                        <a onclick="showPage('mentorship')" class="btn btn-secondary">
+                            <i class="fas fa-hands-helping"></i>
+                            Become a Mentor
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-dots">
+                <span class="hero-dot active" onclick="changeSlide(0)"></span>
+                <span class="hero-dot" onclick="changeSlide(1)"></span>
+                <span class="hero-dot" onclick="changeSlide(2)"></span>
+            </div>
+        </section>
+
+        <!-- What Is SSA Section -->
+        <section class="section-light">
+            <div class="container">
+                <div class="fade-in">
+                    <h2>What Is SSA?</h2>
+                    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                        <p style="font-size: 1.25rem; margin-bottom: 2rem;">Southfield Sports Academy (SSA) is a God-centered, community-based school dedicated to raising strong, disciplined, spiritually grounded young men. Through a powerful blend of faith, academics, leadership training, financial literacy, technology, and elite sports development, we prepare the next generation to lead with purpose.</p>
+                        <p style="font-size: 1.125rem;">SSA equips boys with the character, confidence, and skills they need to thrive—at home, at school, and in life.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Pillars Section -->
+        <section class="section-dark">
+            <div class="container">
+                <div class="fade-in">
+                    <h2>Our Pillars</h2>
+                    <div class="pillars-grid">
+                        <div class="pillar-card modern-card slide-in-left">
+                            <div class="pillar-icon">✝</div>
+                            <h3>Faith & Character</h3>
+                            <p>Building spiritual foundation and moral strength through biblical principles and discipleship.</p>
+                        </div>
+                        <div class="pillar-card modern-card fade-in">
+                            <div class="pillar-icon">🎯</div>
+                            <h3>Leadership & Public Speaking</h3>
+                            <p>Developing confident leaders who can communicate effectively and inspire others.</p>
+                        </div>
+                        <div class="pillar-card modern-card slide-in-right">
+                            <div class="pillar-icon">🧠</div>
+                            <h3>Emotional Intelligence</h3>
+                            <p>Teaching self-awareness, empathy, and emotional regulation for life success.</p>
+                        </div>
+                        <div class="pillar-card modern-card slide-in-left">
+                            <div class="pillar-icon">📚</div>
+                            <h3>Academic & Financial Excellence</h3>
+                            <p>Providing strong academic foundation and practical financial literacy skills.</p>
+                        </div>
+                        <div class="pillar-card modern-card fade-in">
+                            <div class="pillar-icon">💻</div>
+                            <h3>Technology & Innovation</h3>
+                            <p>Equipping students with digital skills and technological fluency for the future.</p>
+                        </div>
+                        <div class="pillar-card modern-card slide-in-right">
+                            <div class="pillar-icon">🏃</div>
+                            <h3>Elite Athletic Training</h3>
+                            <p>Building discipline, teamwork, and physical excellence through competitive sports.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why SSA Works Section -->
+        <section class="section-gold">
+            <div class="container">
+                <div class="fade-in" style="text-align: center;">
+                    <h2>Why SSA Works</h2>
+                    <p style="font-size: 1.3rem; max-width: 800px; margin: 0 auto;">At SSA, your son becomes part of a brotherhood—guided by mentors, coaches, and a village of families who believe in him.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter section-glass" style="margin: 4rem 0;">
+            <div class="container" style="padding: 4rem 2rem;">
+                <div class="fade-in">
+                    <h2 style="color: var(--ssa-gold); margin-bottom: 1rem;">Stay Connected</h2>
+                    <p style="font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.9;">Get updates on programs, events, and stories from our brotherhood.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section class="section-dark">
+            <div class="container fade-in" style="text-align: center;">
+                <h2>Ready to join the brotherhood?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.9;">Take the first step toward transforming your son's future.</p>
+                <div class="cta-buttons">
+                    <a onclick="showPage('enrollment')" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Start the Enrollment Process
+                    </a>
+                    <a onclick="showPage('contact')" class="btn btn-secondary">
+                        <i class="fas fa-calendar-alt"></i>
+                        Schedule a Visit
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page">
+        <div class="page-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <i class="fas fa-home"></i> Home > About
+                </div>
+                <h1>About Southfield Sports Academy</h1>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Discover the heart, mission, and values that drive our brotherhood.</p>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="container">
+                <section class="section-light">
+                    <div class="fade-in">
+                        <h2>Who We Are</h2>
+                        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                            <p style="font-size: 1.25rem;">Southfield Sports Academy is a faith-driven institution committed to shaping the next generation of strong, confident, purpose-driven young Black men. SSA is a village, where families unite to raise boys into exceptional men.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-dark">
+                    <div class="container">
+                        <div class="fade-in">
+                            <h2>Mission</h2>
+                            <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                                <div class="modern-card" style="padding: 3rem; background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(212,175,55,0.2);">
+                                    <p style="font-size: 1.4rem; font-weight: 600; color: var(--ssa-gold);">To cultivate a God-centered brotherhood of young Black men who lead with wisdom, strength, character, confidence, and compassion.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-light">
+                    <div class="fade-in">
+                        <h2>Vision</h2>
+                        <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                            <div class="modern-card" style="padding: 3rem;">
+                                <p style="font-size: 1.4rem; font-weight: 600; color: var(--ssa-charcoal);">To develop young men who excel in faith, academics, careers, community, and family—impacting generations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-gold">
+                    <div class="container">
+                        <div class="fade-in">
+                            <h2>Our Values</h2>
+                            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; margin-top: 3rem;">
+                                <div class="value-badge">Faith</div>
+                                <div class="value-badge">Brotherhood</div>
+                                <div class="value-badge">Leadership</div>
+                                <div class="value-badge">Discipline</div>
+                                <div class="value-badge">Accountability</div>
+                                <div class="value-badge">Service</div>
+                                <div class="value-badge">Generational Impact</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOUNDING STORY PAGE -->
+    <div id="founding-story" class="page">
+        <div class="page-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <i class="fas fa-home"></i> Home > Founding Story
+                </div>
+                <h1>Our Founding Story</h1>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">From one father's prayer to a community's calling.</p>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="container">
+                <section class="section-light">
+                    <div class="fade-in">
+                        <h2>How SSA Began</h2>
+                        <div style="max-width: 800px; margin: 0 auto;">
+                            <div class="modern-card" style="padding: 3rem; text-align: center;">
+                                <p style="font-size: 1.25rem; line-height: 1.8;">SSA was born from the heart of Ishmael Sanders, a young father determined to raise his five sons in a spiritually grounded, value-driven environment. He prayed for a village. God sent one. From that village, the Southfield Sports Academy took life.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-dark">
+                    <div class="container">
+                        <div class="fade-in">
+                            <h2>A Father's Vision Became a Community Mission</h2>
+                            <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                                <div class="modern-card" style="padding: 3rem; background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(212,175,55,0.2);">
+                                    <p style="font-size: 1.3rem; color: var(--ssa-gold); font-weight: 500;">What began as one father's desire grew into a collective calling. A brotherhood formed. Today, SSA stands as a testament to faith, unity, mentorship, and intentional parenting.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROGRAMS PAGE -->
+    <div id="programs" class="page">
+        <div class="page-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <i class="fas fa-home"></i> Home > Programs
+                </div>
+                <h1>Our Programs</h1>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Comprehensive development for mind, body, and spirit.</p>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="container">
+                <section class="section-light">
+                    <div class="fade-in">
+                        <h2>Comprehensive Development Programs</h2>
+                        <div class="programs-grid">
+                            <div class="modern-card program-card">
+                                <div style="padding: 2.5rem;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                                        <i class="fas fa-cross" style="color: var(--ssa-black); font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">1. Faith & Kingdom Identity</h4>
+                                    <p>Bible teaching, discipleship, devotionals, purpose discovery.</p>
+                                </div>
+                            </div>
+                            <div class="modern-card program-card">
+                                <div style="padding: 2.5rem;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                                        <i class="fas fa-bullhorn" style="color: var(--ssa-black); font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">2. Leadership & Public Speaking</h4>
+                                    <p>Presentations, workshops, leadership labs, confidence-building.</p>
+                                </div>
+                            </div>
+                            <div class="modern-card program-card">
+                                <div style="padding: 2.5rem;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                                        <i class="fas fa-brain" style="color: var(--ssa-black); font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">3. Emotional Intelligence & Self-Management</h4>
+                                    <p>Self-awareness, empathy, conflict resolution, resilience.</p>
+                                </div>
+                            </div>
+                            <div class="modern-card program-card">
+                                <div style="padding: 2.5rem;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                                        <i class="fas fa-graduation-cap" style="color: var(--ssa-black); font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">4. Academic Enrichment</h4>
+                                    <p>Tutoring, study skills, reading/writing development.</p>
+                                </div>
+                            </div>
+                            <div class="modern-card program-card">
+                                <div style="padding: 2.5rem;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                                        <i class="fas fa-dollar-sign" style="color: var(--ssa-black); font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">5. Financial Literacy & Wealth Building</h4>
+                                    <p>Budgeting, saving, entrepreneurship, generational wealth principles.</p>
+                                </div>
+                            </div>
+                            <div class="modern-card program-card">
+                                <div style="padding: 2.5rem;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                                        <i class="fas fa-laptop-code" style="color: var(--ssa-black); font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">6. Technology & Innovation</h4>
+                                    <p>STEM labs, coding basics, digital literacy, creative media.</p>
+                                </div>
+                            </div>
+                            <div class="modern-card program-card">
+                                <div style="padding: 2.5rem;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                                        <i class="fas fa-running" style="color: var(--ssa-black); font-size: 1.5rem;"></i>
+                                    </div>
+                                    <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">7. Elite Athletic Training</h4>
+                                    <p>Conditioning, discipline, teamwork, speed/agility, nutrition.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENROLLMENT PAGE -->
+    <div id="enrollment" class="page">
+        <div class="page-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <i class="fas fa-home"></i> Home > Enrollment
+                </div>
+                <h1>Join the Brotherhood</h1>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Begin your son's transformation journey today.</p>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="container">
+                <section class="section-light">
+                    <div class="fade-in">
+                        <h2>Who We Accept</h2>
+                        <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+                            <div class="modern-card" style="padding: 2.5rem; margin-bottom: 4rem;">
+                                <p style="font-size: 1.25rem; color: var(--ssa-charcoal);">SSA welcomes boys ages 6–18 who demonstrate respect, effort, leadership potential, and willingness to grow.</p>
+                            </div>
+                        </div>
+
+                        <h2>Enrollment Steps</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0;">
+                            <div class="modern-card" style="padding: 2.5rem; text-align: center;">
+                                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-family: var(--font-headline); font-weight: 800; font-size: 1.5rem; color: var(--ssa-black);">1</div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem;">Online Interest Form</h4>
+                                <p>Complete our initial application to express your family's interest.</p>
+                            </div>
+                            <div class="modern-card" style="padding: 2.5rem; text-align: center;">
+                                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-family: var(--font-headline); font-weight: 800; font-size: 1.5rem; color: var(--ssa-black);">2</div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem;">Family Interview & Assessment</h4>
+                                <p>Meet with our team to discuss your son's goals and our program fit.</p>
+                            </div>
+                            <div class="modern-card" style="padding: 2.5rem; text-align: center;">
+                                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-family: var(--font-headline); font-weight: 800; font-size: 1.5rem; color: var(--ssa-black);">3</div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem;">Parent Orientation</h4>
+                                <p>Learn about our philosophy, expectations, and partnership approach.</p>
+                            </div>
+                            <div class="modern-card" style="padding: 2.5rem; text-align: center;">
+                                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-family: var(--font-headline); font-weight: 800; font-size: 1.5rem; color: var(--ssa-black);">4</div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem;">Student Mentorship Onboarding</h4>
+                                <p>Your son begins his journey with mentor assignment and brotherhood integration.</p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 4rem;">
+                            <div class="cta-buttons">
+                                <a onclick="showPage('contact')" class="btn btn-primary">
+                                    <i class="fas fa-rocket"></i>
+                                    Apply Today
+                                </a>
+                                <a onclick="showPage('contact')" class="btn btn-secondary">
+                                    <i class="fas fa-info-circle"></i>
+                                    Request More Info
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- TESTIMONIALS PAGE -->
+    <div id="testimonials" class="page">
+        <div class="page-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <i class="fas fa-home"></i> Home > Testimonials
+                </div>
+                <h1>What Families Are Saying</h1>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Real stories from our brotherhood community.</p>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="container">
+                <section class="section-light">
+                    <div class="fade-in">
+                        <h2>Real Stories, Real Impact</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; margin-top: 4rem;">
+                            <div class="modern-card" style="padding: 3rem; position: relative;">
+                                <div style="position: absolute; top: -15px; left: 30px; font-size: 4rem; color: var(--ssa-gold); font-family: var(--font-script);">"</div>
+                                <p style="font-style: italic; margin: 1.5rem 0 2rem; font-size: 1.1rem; line-height: 1.7;">SSA has changed my son's life. The discipline, mentorship, and faith were exactly what he needed.</p>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-user" style="color: var(--ssa-black);"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--ssa-gold);">Parent</div>
+                                        <div style="font-size: 0.9rem; color: var(--ssa-slate);">SSA Family</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modern-card" style="padding: 3rem; position: relative;">
+                                <div style="position: absolute; top: -15px; left: 30px; font-size: 4rem; color: var(--ssa-gold); font-family: var(--font-script);">"</div>
+                                <p style="font-style: italic; margin: 1.5rem 0 2rem; font-size: 1.1rem; line-height: 1.7;">These aren't classmates. These are my brothers.</p>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-graduation-cap" style="color: var(--ssa-black);"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--ssa-gold);">Student</div>
+                                        <div style="font-size: 0.9rem; color: var(--ssa-slate);">Age 16</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modern-card" style="padding: 3rem; position: relative;">
+                                <div style="position: absolute; top: -15px; left: 30px; font-size: 4rem; color: var(--ssa-gold); font-family: var(--font-script);">"</div>
+                                <p style="font-style: italic; margin: 1.5rem 0 2rem; font-size: 1.1rem; line-height: 1.7;">The transformation is real. They grow in character, faith, and confidence.</p>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-whistle" style="color: var(--ssa-black);"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--ssa-gold);">Coach</div>
+                                        <div style="font-size: 0.9rem; color: var(--ssa-slate);">Athletic Director</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+		</div>
+    </div>
+
+    <!-- MENTORSHIP PAGE -->
+    <div id="mentorship" class="page">
+        <div class="page-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <i class="fas fa-home"></i> Home > Mentorship
+                </div>
+                <h1>Become a Mentor</h1>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Shape the next generation of leaders through mentorship.</p>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="container">
+                <section class="section-light">
+                    <div class="fade-in">
+                        <h2>Shape the Next Generation</h2>
+                        <div style="max-width: 800px; margin: 0 auto 4rem; text-align: center;">
+                            <div class="modern-card" style="padding: 3rem;">
+                                <p style="font-size: 1.3rem; color: var(--ssa-charcoal); font-weight: 500;">SSA invites strong men to help lead the next generation.</p>
+                            </div>
+                        </div>
+
+                        <h2>Mentor Responsibilities</h2>
+                        <div class="programs-grid">
+                            <div class="modern-card" style="padding: 2.5rem; text-align: center;">
+                                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-users" style="color: var(--ssa-black); font-size: 1.8rem;"></i>
+                                </div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">Lead Small Groups</h4>
+                                <p>Guide and mentor small groups of young men through their development journey.</p>
+                            </div>
+                            <div class="modern-card" style="padding: 2.5rem; text-align: center;">
+                                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-praying-hands" style="color: var(--ssa-black); font-size: 1.8rem;"></i>
+                                </div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">Pray with Students</h4>
+                                <p>Provide spiritual guidance and prayer support for students in their faith walk.</p>
+                            </div>
+                            <div class="modern-card" style="padding: 2.5rem; text-align: center;">
+                                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-chalkboard-teacher" style="color: var(--ssa-black); font-size: 1.8rem;"></i>
+                                </div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">Coach academics/sports</h4>
+                                <p>Support academic excellence and athletic development through hands-on coaching.</p>
+                            </div>
+                            <div class="modern-card" style="padding: 2.5rem; text-align: center;">
+                                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-tools" style="color: var(--ssa-black); font-size: 1.8rem;"></i>
+                                </div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">Teach Life Skills</h4>
+                                <p>Share practical wisdom and life experiences to prepare young men for adulthood.</p>
+                            </div>
+                            <div class="modern-card" style="padding: 2.5rem; text-align: center;">
+                                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-male" style="color: var(--ssa-black); font-size: 1.8rem;"></i>
+                                </div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">Model Manhood</h4>
+                                <p>Demonstrate godly character and authentic masculinity through personal example.</p>
+                            </div>
+                            <div class="modern-card" style="padding: 2.5rem; text-align: center;">
+                                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-balance-scale" style="color: var(--ssa-black); font-size: 1.8rem;"></i>
+                                </div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1rem; color: var(--ssa-charcoal);">Provide Accountability</h4>
+                                <p>Hold students accountable to their goals, values, and commitments with love and firmness.</p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 4rem;">
+                            <a onclick="showPage('contact')" class="btn btn-primary">
+                                <i class="fas fa-handshake"></i>
+                                Apply to Be a Mentor
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- DONATE PAGE -->
+    <div id="donate" class="page">
+        <div class="page-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <i class="fas fa-home"></i> Home > Donate
+                </div>
+                <h1>Support the Mission</h1>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Invest in the future leaders of tomorrow.</p>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="container">
+                <section class="section-light">
+                    <div class="fade-in">
+                        <h2>Invest in Tomorrow's Leaders</h2>
+                        <div style="max-width: 800px; margin: 0 auto 4rem; text-align: center;">
+                            <div class="modern-card" style="padding: 3rem;">
+                                <p style="font-size: 1.3rem; color: var(--ssa-charcoal); font-weight: 500;">Your giving helps fund scholarships, equipment, programs, and family support.</p>
+                            </div>
+                        </div>
+
+                        <div class="programs-grid">
+                            <div class="modern-card" style="padding: 3rem; text-align: center;">
+                                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-graduation-cap" style="color: var(--ssa-black); font-size: 2rem;"></i>
+                                </div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1.5rem; color: var(--ssa-charcoal);">Scholarship Fund</h4>
+                                <p style="line-height: 1.7;">Provide tuition assistance for families who need financial support to join the SSA brotherhood.</p>
+                            </div>
+                            <div class="modern-card" style="padding: 3rem; text-align: center;">
+                                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-dumbbell" style="color: var(--ssa-black); font-size: 2rem;"></i>
+                                </div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1.5rem; color: var(--ssa-charcoal);">Equipment & Facilities</h4>
+                                <p style="line-height: 1.7;">Help us maintain and upgrade our athletic equipment, technology labs, and learning spaces.</p>
+                            </div>
+                            <div class="modern-card" style="padding: 3rem; text-align: center;">
+                                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-code" style="color: var(--ssa-black); font-size: 2rem;"></i>
+                                </div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1.5rem; color: var(--ssa-charcoal);">Program Development</h4>
+                                <p style="line-height: 1.7;">Support the expansion of our curriculum and the development of new programs.</p>
+                            </div>
+                            <div class="modern-card" style="padding: 3rem; text-align: center;">
+                                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-heart" style="color: var(--ssa-black); font-size: 2rem;"></i>
+                                </div>
+                                <h4 style="font-family: var(--font-headline); font-weight: 700; margin-bottom: 1.5rem; color: var(--ssa-charcoal);">Family Support</h4>
+                                <p style="line-height: 1.7;">Provide resources and assistance to families in our SSA community who face challenges.</p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 4rem;">
+                            <div class="cta-buttons">
+                                <a href="#" class="btn btn-primary">
+                                    <i class="fas fa-donate"></i>
+                                    Give Today
+                                </a>
+                                <a href="#" class="btn btn-secondary">
+                                    <i class="fas fa-user-graduate"></i>
+                                    Sponsor a Student
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <div class="page-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <i class="fas fa-home"></i> Home > Contact
+                </div>
+                <h1>Let's Connect</h1>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Ready to begin this journey together?</p>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="container">
+                <section class="section-light">
+                    <div class="fade-in">
+                        <h2>We Are Here to Partner with You</h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 4rem; margin: 4rem 0;">
+                            <div class="modern-card" style="padding: 3rem; text-align: center;">
+                                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--ssa-black); font-size: 2rem;"></i>
+                                </div>
+                                <h3 style="color: var(--ssa-charcoal); margin-bottom: 2rem;">Contact Information</h3>
+                                <div style="text-align: left; max-width: 250px; margin: 0 auto;">
+                                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                        <i class="fas fa-envelope" style="color: var(--ssa-gold); width: 20px;"></i>
+                                        <span>info@southfieldsportsacademy.org</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                        <i class="fas fa-phone" style="color: var(--ssa-gold); width: 20px;"></i>
+                                        <span>(###) ###-####</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <i class="fas fa-map-marker-alt" style="color: var(--ssa-gold); width: 20px;"></i>
+                                        <span>Southfield, MI</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="modern-card" style="padding: 3rem;">
+                                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--ssa-gold), #f4d03f); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; box-shadow: var(--shadow-gold);">
+                                    <i class="fas fa-paper-plane" style="color: var(--ssa-black); font-size: 2rem;"></i>
+                                </div>
+                                <h3 style="color: var(--ssa-charcoal); margin-bottom: 2rem; text-align: center;">Send Us a Message</h3>
+                                <form id="contactForm" style="max-width: 100%;">
+                                    <div style="margin-bottom: 2rem;">
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--ssa-charcoal);">Name</label>
+                                        <input type="text" required style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: var(--border-radius-sm); font-family: var(--font-body); font-size: 1rem; transition: all 0.3s ease;">
+                                    </div>
+                                    <div style="margin-bottom: 2rem;">
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--ssa-charcoal);">Email</label>
+                                        <input type="email" required style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: var(--border-radius-sm); font-family: var(--font-body); font-size: 1rem; transition: all 0.3s ease;">
+                                    </div>
+                                    <div style="margin-bottom: 2rem;">
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--ssa-charcoal);">Phone</label>
+                                        <input type="tel" style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: var(--border-radius-sm); font-family: var(--font-body); font-size: 1rem; transition: all 0.3s ease;">
+                                    </div>
+                                    <div style="margin-bottom: 2rem;">
+                                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--ssa-charcoal);">Message</label>
+                                        <textarea required style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: var(--border-radius-sm); font-family: var(--font-body); font-size: 1rem; min-height: 120px; resize: vertical; transition: all 0.3s ease;"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                                        <i class="fas fa-paper-plane"></i>
+                                        Send Message
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modern Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section fade-in">
+                    <h4>Southfield Sports Academy</h4>
+                    <p style="margin-bottom: 1rem; opacity: 0.9;">Building Men. Strengthening Faith. Transforming Generations.</p>
+                    <p style="color: var(--ssa-gold); font-weight: 600;">Faith • Brotherhood • Excellence</p>
+                    <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                        <a href="#" style="width: 40px; height: 40px; background: rgba(212,175,55,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--ssa-gold); transition: all 0.3s ease;">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" style="width: 40px; height: 40px; background: rgba(212,175,55,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--ssa-gold); transition: all 0.3s ease;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" style="width: 40px; height: 40px; background: rgba(212,175,55,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--ssa-gold); transition: all 0.3s ease;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section fade-in">
+                    <h4>Quick Links</h4>
+                    <a onclick="showPage('about')"><i class="fas fa-chevron-right" style="font-size: 0.8rem; margin-right: 0.5rem;"></i>About SSA</a>
+                    <a onclick="showPage('programs')"><i class="fas fa-chevron-right" style="font-size: 0.8rem; margin-right: 0.5rem;"></i>Programs</a>
+                    <a onclick="showPage('enrollment')"><i class="fas fa-chevron-right" style="font-size: 0.8rem; margin-right: 0.5rem;"></i>Enrollment</a>
+                    <a onclick="showPage('mentorship')"><i class="fas fa-chevron-right" style="font-size: 0.8rem; margin-right: 0.5rem;"></i>Mentorship</a>
+                    <a onclick="showPage('donate')"><i class="fas fa-chevron-right" style="font-size: 0.8rem; margin-right: 0.5rem;"></i>Donate</a>
+                </div>
+                <div class="footer-section fade-in">
+                    <h4>Get Involved</h4>
+                    <a onclick="showPage('enrollment')"><i class="fas fa-chevron-right" style="font-size: 0.8rem; margin-right: 0.5rem;"></i>Enroll Your Son</a>
+                    <a onclick="showPage('mentorship')"><i class="fas fa-chevron-right" style="font-size: 0.8rem; margin-right: 0.5rem;"></i>Become a Mentor</a>
+                    <a onclick="showPage('donate')"><i class="fas fa-chevron-right" style="font-size: 0.8rem; margin-right: 0.5rem;"></i>Support Our Mission</a>
+                    <a onclick="showPage('contact')"><i class="fas fa-chevron-right" style="font-size: 0.8rem; margin-right: 0.5rem;"></i>Schedule a Visit</a>
+                </div>
+                <div class="footer-section fade-in">
+                    <h4>Contact</h4>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <i class="fas fa-envelope" style="color: var(--ssa-gold); width: 16px;"></i>
+                        <span>info@southfieldsportsacademy.org</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <i class="fas fa-phone" style="color: var(--ssa-gold); width: 16px;"></i>
+                        <span>(###) ###-####</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--ssa-gold); width: 16px;"></i>
+                        <span>Southfield, MI</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-motto fade-in">
+                "Iron sharpens iron." — Proverbs 27:17
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Modern JavaScript functionality
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        // Hero Carousel
+        function changeSlide(index) {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.hero-dot');
+            
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        // Auto-advance carousel
+        function autoAdvanceCarousel() {
+            const nextSlide = (currentSlide + 1) % totalSlides;
+            changeSlide(nextSlide);
+        }
+
+        // Initialize carousel auto-advance
+        setInterval(autoAdvanceCarousel, 5000);
+
+        // Page Navigation with smooth transitions
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            const activePage = document.querySelector('.page.active');
+            
+            // Fade out current page
+            if (activePage) {
+                activePage.style.opacity = '0';
+                activePage.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    activePage.classList.remove('active');
+                    
+                    // Show new page
+                    const newPage = document.getElementById(pageId);
+                    newPage.classList.add('active');
+                    newPage.style.opacity = '0';
+                    newPage.style.transform = 'translateY(20px)';
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                    
+                    // Fade in new page
+                    setTimeout(() => {
+                        newPage.style.opacity = '1';
+                        newPage.style.transform = 'translateY(0)';
+                    }, 50);
+                    
+                    // Reset scroll animations
+                    resetScrollAnimations();
+                }, 300);
+            } else {
+                // No current page, just show new page
+                const newPage = document.getElementById(pageId);
+                newPage.classList.add('active');
+                window.scrollTo(0, 0);
+                resetScrollAnimations();
+            }
+            
+            closeMobileMenu();
+        }
+
+        // Mobile Menu
+        let mobileMenuOpen = false;
+
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenuOpen = !mobileMenuOpen;
+            
+            if (mobileMenuOpen) {
+                navLinks.classList.add('mobile-active');
+                mobileMenu.style.transform = 'rotate(90deg)';
+            } else {
+                navLinks.classList.remove('mobile-active');
+                mobileMenu.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function closeMobileMenu() {
+            if (mobileMenuOpen) {
+                const navLinks = document.querySelector('.nav-links');
+                const mobileMenu = document.querySelector('.mobile-menu');
+                navLinks.classList.remove('mobile-active');
+                mobileMenu.style.transform = 'rotate(0deg)';
+                mobileMenuOpen = false;
+            }
+        }
+
+        // Header scroll effect
+        function handleHeaderScroll() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
+        // Scroll animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        function resetScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+            elements.forEach(element => {
+                element.classList.remove('visible');
+            });
+            // Trigger scroll check immediately
+            setTimeout(handleScrollAnimations, 100);
+        }
+
+        // Form handling
+        function handleForms() {
+            // Newsletter form
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    showNotification('Thank you for subscribing! We\'ll keep you updated on SSA news and events.');
+                    this.reset();
+                });
+            }
+
+            // Contact form
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    showNotification('Thank you for your message! We will get back to you within 24 hours.');
+                    this.reset();
+                });
+            }
+        }
+
+        // Notification system
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: linear-gradient(135deg, var(--ssa-gold), #f4d03f);
+                color: var(--ssa-black);
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+                z-index: 10000;
+                font-weight: 600;
+                transform: translateX(400px);
+                transition: transform 0.4s ease;
+                max-width: 350px;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 400);
+            }, 5000);
+        }
+
+        // Input focus effects
+        function enhanceInputs() {
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.borderColor = 'var(--ssa-gold)';
+                    this.style.boxShadow = '0 0 0 3px rgba(212, 175, 55, 0.1)';
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.borderColor = '#ddd';
+                    this.style.boxShadow = 'none';
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        }
+
+        // Add value badges animation
+        function animateValueBadges() {
+            const style = document.createElement('style');
+            style.textContent = `
+                .value-badge {
+                    background: rgba(0, 0, 0, 0.8);
+                    color: var(--ssa-gold);
+                    padding: 1rem 2rem;
+                    border-radius: 50px;
+                    font-family: var(--font-headline);
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    border: 2px solid var(--ssa-gold);
+                    transition: all 0.3s ease;
+                    cursor: default;
+                    display: inline-block;
+                    margin: 0.5rem;
+                }
+                
+                .value-badge:hover {
+                    background: var(--ssa-gold);
+                    color: var(--ssa-black);
+                    transform: translateY(-3px) scale(1.05);
+                    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Button hover enhancements
+        function enhanceButtons() {
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = this.style.transform.includes('scale') ? 
+                        this.style.transform : 'translateY(-4px) scale(1.02)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Card hover effects
+        function enhanceCards() {
+            const cards = document.querySelectorAll('.modern-card, .pillar-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    if (!this.style.transform.includes('translateY')) {
+                        this.style.transform = 'translateY(-12px)';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        }
+
+        // Smooth scroll for anchor links
+        function smoothScrollLinks() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Responsive navigation handling
+        function handleResponsiveNav() {
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    const navLinks = document.querySelector('.nav-links');
+                    navLinks.classList.remove('mobile-active');
+                    mobileMenuOpen = false;
+                    document.querySelector('.mobile-menu').style.transform = 'rotate(0deg)';
+                }
+            });
+        }
+
+        // Loading states for buttons
+        function addButtonLoadingStates() {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        const originalText = submitBtn.innerHTML;
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                        submitBtn.disabled = true;
+                        
+                        // Reset after 2 seconds (simulated)
+                        setTimeout(() => {
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                        }, 2000);
+                    }
+                });
+            });
+        }
+
+        // Initialize parallax effect for hero
+        function initParallax() {
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.hero-content');
+                
+                parallaxElements.forEach(element => {
+                    const speed = 0.5;
+                    element.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            });
+        }
+
+        // Add floating elements animation
+        function addFloatingAnimation() {
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float-slow {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-20px) rotate(2deg); }
+                }
+                
+                @keyframes float-medium {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-15px) rotate(-1deg); }
+                }
+                
+                @keyframes float-fast {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-10px) rotate(1deg); }
+                }
+                
+                .pillar-icon {
+                    animation: float-medium 6s ease-in-out infinite;
+                }
+                
+                .hero-dot {
+                    animation: float-fast 4s ease-in-out infinite;
+                }
+                
+                .hero-dot:nth-child(2) {
+                    animation-delay: 1s;
+                }
+                
+                .hero-dot:nth-child(3) {
+                    animation-delay: 2s;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Page transition effects
+        function addPageTransitions() {
+            const style = document.createElement('style');
+            style.textContent = `
+                .page {
+                    transition: opacity 0.3s ease, transform 0.3s ease;
+                }
+                
+                .page:not(.active) {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                
+                .page.active {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Intersection Observer for better performance
+        function initIntersectionObserver() {
+            if ('IntersectionObserver' in window) {
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe all animation elements
+                const elementsToObserve = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+                elementsToObserve.forEach(el => observer.observe(el));
+            } else {
+                // Fallback for browsers without IntersectionObserver
+                window.addEventListener('scroll', handleScrollAnimations);
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 SSA Website Loaded - Modern Features Activated');
+            
+            // Initialize all enhancements
+            handleForms();
+            enhanceInputs();
+            animateValueBadges();
+            enhanceButtons();
+            enhanceCards();
+            smoothScrollLinks();
+            handleResponsiveNav();
+            addButtonLoadingStates();
+            initParallax();
+            addFloatingAnimation();
+            addPageTransitions();
+            
+            // Initialize scroll animations
+            if ('IntersectionObserver' in window) {
+                initIntersectionObserver();
+            } else {
+                window.addEventListener('scroll', handleScrollAnimations);
+            }
+            
+            // Initialize header scroll effect
+            window.addEventListener('scroll', handleHeaderScroll);
+            
+            // Show home page with animations
+            showPage('home');
+            
+            // Initial scroll animations check
+            setTimeout(handleScrollAnimations, 500);
+        });
+
+        // Add CSS for enhanced modern effects
+        const enhancedCSS = document.createElement('style');
+        enhancedCSS.textContent = `
+            /* Enhanced Modern Styles */
+            
+            /* Button glow effect */
+            .btn-primary {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .btn-primary::after {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                pointer-events: none;
+            }
+            
+            .btn-primary:hover::after {
+                opacity: 1;
+                animation: shimmer 1.5s ease-out;
+            }
+            
+            @keyframes shimmer {
+                0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+                100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            }
+            
+            /* Enhanced card shadows */
+            .modern-card {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .modern-card::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(212,175,55,0.1), transparent);
+                transition: left 0.6s ease;
+            }
+            
+            .modern-card:hover::after {
+                left: 100%;
+            }
+            
+            /* Improved glassmorphism */
+            .section-glass {
+                background: rgba(255, 255, 255, 0.08);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            }
+            
+            /* Enhanced testimonial cards */
+            .testimonial-card {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .testimonial-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, var(--ssa-gold), #f4d03f, var(--ssa-gold));
+            }
+            
+            /* Enhanced mobile responsiveness */
+            @media (max-width: 480px) {
+                .hero h1 {
+                    font-size: 2rem;
+                }
+                
+                .btn {
+                    padding: 14px 28px;
+                    font-size: 0.9rem;
+                }
+                
+                .pillar-icon {
+                    width: 60px;
+                    height: 60px;
+                    font-size: 1.3rem;
+                }
+            }
+            
+            /* Loading skeleton */
+            .skeleton {
+                background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+                background-size: 200% 100%;
+                animation: loading 1.5s infinite;
+            }
+            
+            /* Scroll indicator */
+            .scroll-indicator {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 3px;
+                background: linear-gradient(90deg, var(--ssa-gold), #f4d03f);
+                z-index: 9999;
+                transition: width 0.1s ease;
+            }
+            
+            /* Focus styles for accessibility */
+            .btn:focus,
+            input:focus,
+            textarea:focus {
+                outline: 3px solid rgba(212, 175, 55, 0.5);
+                outline-offset: 2px;
+            }
+            
+            /* Reduced motion for accessibility */
+            @media (prefers-reduced-motion: reduce) {
+                *,
+                *::before,
+                *::after {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                }
+            }
+        `;
+        document.head.appendChild(enhancedCSS);
+
+        // Add scroll progress indicator
+        function addScrollIndicator() {
+            const indicator = document.createElement('div');
+            indicator.className = 'scroll-indicator';
+            document.body.appendChild(indicator);
+            
+            window.addEventListener('scroll', function() {
+                const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+                indicator.style.width = Math.min(scrolled, 100) + '%';
+            });
+        }
+
+        // Initialize scroll indicator
+        document.addEventListener('DOMContentLoaded', function() {
+            addScrollIndicator();
+        });
+
+        // Performance optimization: Debounced scroll handler
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Apply debouncing to scroll events
+        window.addEventListener('scroll', debounce(handleHeaderScroll, 10));
+        
+        console.log('✨ SSA Modern Website Ready - All Features Loaded!');
+    </script>
+</body>
+</html>
